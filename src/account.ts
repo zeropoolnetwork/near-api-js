@@ -95,7 +95,11 @@ export class Account {
      * @returns Promise<void>
      */
     async fetchState(): Promise<void> {
-        this._state = await this.connection.provider.query(`account/${this.accountId}`, '');
+        this._state = await this.connection.provider.query({
+            request_type: 'view_account',
+            account_id: this.accountId,
+            finality: 'final',
+        });
     }
 
     /**
